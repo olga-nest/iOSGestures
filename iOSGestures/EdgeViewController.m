@@ -16,22 +16,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    CGFloat height = 300;
+    CGFloat widht  = 300;
+    
+    CGRect frame = (CGRectMake(self.view.frame.size.width - 20.0f, (CGRectGetMidY(self.view.bounds) - height/2), widht, height));
+    
+    UIView *myView = [[UIView alloc]initWithFrame:frame];
+    myView.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:myView];
+    
+    UIScreenEdgePanGestureRecognizer *edgeRecognizer = [[UIScreenEdgePanGestureRecognizer alloc]initWithTarget:self action:@selector(viewDragged:)];
+    [edgeRecognizer setEdges:UIRectEdgeRight];
+    [myView addGestureRecognizer:edgeRecognizer];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewDragged: (UIScreenEdgePanGestureRecognizer *) sender {
+    NSLog(@"Edge...");
+    
+   
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
