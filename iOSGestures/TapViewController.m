@@ -1,11 +1,3 @@
-//
-//  TapViewController.m
-//  iOSGestures
-//
-//  Created by Olga on 10/12/17.
-//  Copyright © 2017 Olga Nesterova. All rights reserved.
-//
-
 #import "TapViewController.h"
 
 @interface TapViewController ()
@@ -16,22 +8,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    CGFloat height = 100;
+    CGFloat widht  = 100;
+    
+    CGRect frame = (CGRectMake(CGRectGetMidX(self.view.bounds) - widht/2, (CGRectGetMidY(self.view.bounds) - height/2), widht, height));
+    
+    UIView *view = [[UIView alloc]initWithFrame:frame];
+    view.backgroundColor = [UIColor yellowColor];;
+    [self.view addSubview:view];
+
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeColor:)];
+    [view addGestureRecognizer:tapRecognizer];    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)changeColor: (UITapGestureRecognizer *) sender {
+    UIColor *color = [sender.view.backgroundColor isEqual: [UIColor yellowColor]] ? [UIColor orangeColor] : [UIColor yellowColor];
+    
+    sender.view.backgroundColor = color;
+    
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
