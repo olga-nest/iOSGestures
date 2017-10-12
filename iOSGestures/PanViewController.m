@@ -1,11 +1,3 @@
-//
-//  PanViewController.m
-//  iOSGestures
-//
-//  Created by Olga on 10/12/17.
-//  Copyright © 2017 Olga Nesterova. All rights reserved.
-//
-
 #import "PanViewController.h"
 
 @interface PanViewController ()
@@ -13,25 +5,10 @@
 @end
 
 @implementation PanViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (IBAction)pinkViewPanned:(UIPanGestureRecognizer *)sender {
+    
+    CGPoint locationInView = [sender locationInView:self.view];
+    sender.view.center = locationInView;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
