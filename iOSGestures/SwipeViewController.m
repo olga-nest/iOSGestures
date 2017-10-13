@@ -10,28 +10,78 @@
 
 @interface SwipeViewController ()
 
+@property (nonatomic) UIView *brownView;
+@property (nonatomic) UIView *whiteView;
+@property (nonatomic) BOOL isOpen;
+@property (nonatomic) UISwipeGestureRecognizer *swipeRightRecognizer;
+@property (nonatomic) UISwipeGestureRecognizer *swipeLeftRecognizer;
+@property (nonatomic) CGFloat height;
+@property (nonatomic) CGFloat widht;
+
+
 @end
 
 @implementation SwipeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
+    CGFloat height = 50;
+    CGFloat widht  = 300;
+    
+    CGRect frame = (CGRectMake(CGRectGetMidX(self.view.bounds) - widht/2, (CGRectGetMidY(self.view.bounds) - height/2), widht, height));
+    
+    UIView *brownView = [[UIView alloc]initWithFrame:frame];
+    brownView.backgroundColor = [UIColor brownColor];
+    brownView.clipsToBounds = YES;
+    [self.view addSubview:brownView];
+    
+    
+    UIView *whiteView = [[UIView alloc]initWithFrame:frame];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    self.isOpen = NO;
+    //Fix me!
+    [self.view addSubview:whiteView];
+    
+    UISwipeGestureRecognizer *swipeRightRecognizer;
+    
+    swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(viewSwiped:)];
+    [whiteView addGestureRecognizer:swipeRightRecognizer];
+    [swipeRightRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    
+    UISwipeGestureRecognizer *swipeLeftRecognizer;
+    
+    swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(viewSwiped:)];
+    [whiteView addGestureRecognizer:swipeLeftRecognizer];
+    [swipeLeftRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+-(void)viewSwiped: (UISwipeGestureRecognizer *) sender {
+    switch (sender.direction) {
+        case UISwipeGestureRecognizerDirectionLeft: {
+            if (self.isOpen == NO) {
+                
+                sender.view.frame = CGRectMake(sender.view.frame.origin.x-70, sender.view.frame.origin.y, sender.view.frame.size.width, sender.view.frame.size.height);
+                self.isOpen = YES;
+            }
+        } break;
+        case UISwipeGestureRecognizerDirectionRight: {
+            if (self.isOpen == YES) {
+            sender.view.frame = CGRectMake(sender.view.frame.origin.x+70, sender.view.frame.origin.y, sender.view.frame.size.width, sender.view.frame.size.height);
+            self.isOpen = NO;
+        } break;
+            
+        default:
+            break;
+    }
+    
+    }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
 
 @end
+
+
