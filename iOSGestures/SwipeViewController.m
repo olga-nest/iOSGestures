@@ -37,12 +37,13 @@
     brownView.clipsToBounds = YES;
     [self.view addSubview:brownView];
     
+    CGRect whiteViewFrame = CGRectMake(0, 0, brownView.frame.size.width, brownView.frame.size.height);
     
-    UIView *whiteView = [[UIView alloc]initWithFrame:frame];
+    UIView *whiteView = [[UIView alloc]initWithFrame:whiteViewFrame];
     whiteView.backgroundColor = [UIColor whiteColor];
     self.isOpen = NO;
     //Fix me!
-    [self.view addSubview:whiteView];
+    [brownView addSubview:whiteView];
     
     UISwipeGestureRecognizer *swipeRightRecognizer;
     
@@ -60,10 +61,10 @@
 }
 
 -(void)viewSwiped: (UISwipeGestureRecognizer *) sender {
+    NSLog(@"Swipe!..");
     switch (sender.direction) {
         case UISwipeGestureRecognizerDirectionLeft: {
             if (self.isOpen == NO) {
-                
                 sender.view.frame = CGRectMake(sender.view.frame.origin.x-70, sender.view.frame.origin.y, sender.view.frame.size.width, sender.view.frame.size.height);
                 self.isOpen = YES;
             }
