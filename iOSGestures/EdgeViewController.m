@@ -34,16 +34,16 @@
     
     CGFloat height = 300;
     CGFloat widht  = 300;
-    _height = height;
-    _widht = widht;
+    self.height = height;
+    self.widht = widht;
     
     CGRect myFrame = (CGRectMake(self.view.frame.size.width - 20.0f, (CGRectGetMidY(self.view.bounds) - height/2), widht, height));
     UIView *myView = [[UIView alloc]initWithFrame:myFrame];
     myView.backgroundColor = [UIColor orangeColor];
     // Get center of  our view. We'll need it later
-    _rightCenter = myView.center;
+    self.rightCenter = myView.center;
     // Calculate start position of a new center - where we move if drag is > 100 points
-    _leftCenter = CGPointMake(_rightCenter.x - _widht+20, _rightCenter.y);
+    self.leftCenter = CGPointMake(self.rightCenter.x - self.widht+20, self.rightCenter.y);
     
     self.isOpen = NO;
     [self.view addSubview:myView];
@@ -65,12 +65,12 @@
     CGPoint dst;
     // moving left <- translationInView.x is  negative
     if (translationInView.x < 0){
-        src = _rightCenter;
-        dst = _leftCenter;
+        src = self.rightCenter;
+        dst = self.leftCenter;
         // moving right -> translationInView.x is  positive
     }else{
-        src = _leftCenter;
-        dst = _rightCenter;
+        src = self.leftCenter;
+        dst = self.rightCenter;
     }
     
     // calculate position of a center depends on direction
